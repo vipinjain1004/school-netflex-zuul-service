@@ -10,36 +10,34 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 
-//@Component
-public class ZuulLoggingFilter extends ZuulFilter{
+@Component
+public class ZuulLoggingFilter extends ZuulFilter {
 
 	private Logger logger = LoggerFactory.getLogger(ZuulLoggingFilter.class);
-	
+
 	@Override
 	public Object run() throws ZuulException {
-		
 		HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
-		logger.info("\nRequest Coming from : {} \n Request URL ",request, request.getRequestURI());
-		
+		logger.info("\n Request Coming from : {} \n Request URL {}", request.getServerPort(), request.getRequestURI());
 		return null;
 	}
 
 	@Override
 	public boolean shouldFilter() {
-		
-		return false;
+
+		return true;
 	}
 
 	@Override
 	public int filterOrder() {
-		
-		return 0;
+
+		return 1;
 	}
 
 	@Override
 	public String filterType() {
-		
-		return null;
+
+		return "pre";
 	}
 
 }
